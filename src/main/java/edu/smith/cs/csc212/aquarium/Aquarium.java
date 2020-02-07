@@ -17,11 +17,13 @@ import me.jjfoley.gfx.GFX;
  * @author jfoley
  *
  */
-public class Aquarium extends GFX {
+public class Aquarium extends GFX { //GFX = animation/graphics, like 200-300 lines code
 	/**
 	 * This is a static variable that tells us how wide the aquarium is.
 	 */
-	public static int WIDTH = 500;
+	public static int WIDTH = 500; //size of window = w width and height
+	// like other languages; top left = (0,0) and top bottom (500, 500)
+	//up: -y, down: +y, left: -x, right: +x
 	/**
 	 * This is a static variable that tells us how tall the aquarium is.
 	 */
@@ -41,29 +43,47 @@ public class Aquarium extends GFX {
 		super(WIDTH, HEIGHT);
 	}
 
-	int fish1X = getWidth() + 100;
+	int fish1X = getWidth() + 100;  //1x 2x as in 1x x coord movement (self)
 	int fish2X = getWidth() + 300;
+	int fish3X = -100;
+	//red fish 3x :)
 
+	Fish nemo = new Fish(-80, 40, Color.cyan, true, true); 
+			//lowercase and uppercase are the same, did lowercase first and then added and now 2 of everything
+	Fish boo = new Fish(-30, 80, Color.black, false, true);
 	@Override
-	public void draw(Graphics2D g) {
+	public void draw(Graphics2D g) { //instead of graphicswin = graphics2d, g=what's usu called, arbitrary obj
 		// Draw the "ocean" background.
-		g.setColor(Color.blue);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		g.setColor(Color.blue); //bg color, obv set 1st so not over fish
+		g.fillRect(0, 0, getWidth(), getHeight()); //
 
-		// Draw the fish!
+		nemo.draw(g); //becomes the this variable in the Fish class
+		nemo.swim(); //like the draw(win) thing
+		boo.draw(g);
+		boo.swim();
+		
+		// Draw the fish! there are 1 versions of draw fish method, facingleft/right and smol fish vers of that 
+		//DrawFish.smallFacingLeft(g, nemo.color, nemo.x, nemo.y); //can break spaces
+		//and it doesn't cut tho code, tho it does for these comments smh
 		DrawFish.facingLeft(g, Color.yellow, fish1X, 200);
+		
 		// Draw the confused fish!
-		DrawFish.facingRight(g, Color.green, fish2X, 300);
+		DrawFish.facingLeft(g, Color.green, fish2X, 300);
 
 		// What if we wanted this little fish to swim, too?
-		DrawFish.smallFacingLeft(g, Color.red, 200, 100);
+		DrawFish.smallFacingRight(g, Color.red, fish3X, 100); //inst. of just 200, put fish3x
 
 		// Draw our snail!
 		algorithm.draw(g);
 
 		// Move the fish!
-		fish1X -= 1;
+		fish1X -= 1; //already in loop so makes move by x axis
 		fish2X -= 2;
+		fish3X +=3;
+		if(fish3X > getWidth() + 45){
+		   fish3X = -100;
+		 //not perf bc can see it disppear so do getwidth + 50 so that can disappear a lil after it leaves the screen
+	    }
 	}
 
 	public static void main(String[] args) {
