@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import me.jjfoley.gfx.GFX;
 
+
 //Code borrowed from John Foley: 
 public class Aquarium extends GFX { /*GFX = animation/graphics, like 
 	200-300 lines code orig so not even gonna be talked abt */
@@ -23,20 +24,24 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 		super(W, H);
 	}
 
-	int fish1X = getWidth() + 100;  //1x 2x as in 1x x coord movement (self)
-	int fish2X = getWidth() + 300;
-	int fish3X = -100;
+//	int fish1X = getWidth() + 100;  //1x 2x as in 1x x coord movement (self)
+//	int fish2X = getWidth() + 300;
+//	int fish3X = -100;
 	//red fish 3x :)
 
-	Fish nemo = new Fish(100, 40, Color.cyan, true, true); 
+	Fish nemo = new Fish(100, 40, Color.cyan, false, true); 
 			//100, 40 = x, y coord of fish
-	Fish boo = new Fish(30, 80, Color.pink, false, true);
-	
+	Fish boo = new Fish(140, 80, Color.pink, true, true);
+	 /*problem: boo isn't showing up, and fishes 
+	  * facing both ways, tho that's prob bc of the 2 times
+	  * we are drawing the fish so don't do that? D:
+	  */
 	@Override
 	public void draw(Graphics2D g) { //instead of graphicswin = graphics2d, g=what's usu called, arbitrary obj name
 		//Ocean bg code
 		g.setColor(Color.blue); //bg color, obv set 1st so not over fish
-		g.fillRect(0, 0, getWidth(), getHeight()); //
+		g.fillRect(0, 0, getWidth(), getHeight()); 
+		
 			//filling rect of the window blue ;)
 		nemo.draw(g); //becomes the this variable in the Fish class
 		 //like the draw(win) thing
@@ -47,25 +52,24 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 		 * facingleft/right and smol fish vers of that */
 		//DrawFish.smallFacingLeft(g, nemo.color, nemo.x, nemo.y);  
 		
-		DrawFish.facingLeft(g, Color.yellow, fish1X, 200);
-		 //instead of putting x coord, put fishX bc that's the x coord for that fish oo
-		
-		DrawFish.facingLeft(g, Color.green, fish2X, 300);
-
-		
-		DrawFish.smallFacingRight(g, Color.red, fish3X, 100); //inst. of just 200, put fish3x
-
-		//draw snail (fr Snail algorithm)
+//		DrawFish.facingLeft(g, Color.yellow, fish1X, 200);
+//		 //instead of putting x coord, put fishX bc that's the x coord for that fish oo
+//		
+//		DrawFish.facingLeft(g, Color.green, fish2X, 300);
+//
+//		
+//		DrawFish.smallFacingRight(g, Color.red, fish3X, 100); //inst. of just 200, put fish3x
+//
+//		//draw snail (fr Snail algorithm)
 		algorithm.draw(g);
 
 		//Moves fish
-		fish1X -= 1; //already in loop so makes move by x axis
-		fish2X -= 2;
-		fish3X +=3;
-		if(fish3X > getWidth() + 45){ //wrapping fish when goes too much to the left
-		   fish3X = -100;
-		
-	    }
+//		fish1X -= 1; //already in loop so makes move by x axis
+//		fish2X -= 2;
+//		fish3X +=3;
+//		if(fish3X > getWidth() + 45){ //wrapping fish when goes too much to the left
+//		   fish3X = -100;
+//	    }
 	}
 
 	public static void main(String[] args) {
