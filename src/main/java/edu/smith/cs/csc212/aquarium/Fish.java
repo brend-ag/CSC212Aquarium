@@ -52,7 +52,7 @@ public class Fish {
 	   }
 	   
 	   if(this.x < this.destX) {
-		   this.facingLeft = false;
+		   this.facingLeft = false; //true/false = LOWErCASE
 		   this.x+=1;
 	   }
 	   
@@ -60,20 +60,23 @@ public class Fish {
 		   this.destX = rand.nextInt(480);
 	   }
 	   
-	   if ((this.isLittle=true) && (this.facingLeft=true)){
-		   DrawFish.smallFacingLeft(g, this.color, this.x, this.y);
-	   }
-	   //how to incorporate the isLittle :((((
-	   if ((this.isLittle = false) && (this.facingLeft= false)) {
-			DrawFish.smallFacingRight(g, this.color, this.x, this.y);
-		}
-	   else if (this.facingLeft == true) { //remember true = LOWERCASE
+	   if (this.facingLeft==true) {
+		   if (this.isLittle==true) {
+			   DrawFish.smallFacingLeft(g, this.color, this.x, this.y);
+		   }
+		   else {
 		   DrawFish.facingLeft(g, this.color, this.x, this.y);
-		}
-	   
-	   else if (this.facingLeft == false) {
-			DrawFish.facingRight(g, this.color, this.x, this.y);
-		}
+
+		   }
+	   }
+	   if (this.facingLeft==false) {
+		   if (this.isLittle==true) {
+			   DrawFish.smallFacingRight(g, this.color, this.x, this.y);
+		   }
+		   else {
+			   DrawFish.facingRight(g, this.color, this.x, this.y);
+		   }
+	   }
 	   
 	    if(this.y < this.destY) {
 		   this.y+=1;  /*slowly swim to bottom, if y is < destY 

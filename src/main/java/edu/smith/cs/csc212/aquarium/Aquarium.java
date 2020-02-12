@@ -1,10 +1,9 @@
 package edu.smith.cs.csc212.aquarium;
-
+import java.util.Random;
 import java.awt.Color;
 import java.awt.Graphics2D;
-
 import me.jjfoley.gfx.GFX;
-
+import java.util.concurrent.ThreadLocalRandom;
 
 //Code borrowed from John Foley: 
 public class Aquarium extends GFX { /*GFX = animation/graphics, like 
@@ -18,34 +17,62 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 	Snail algorithm = new Snail(177, Snail.HEIGHT + 1, "top");
 		//puts snail at top of tank //what's the 177???? 
 	    //and top type nani and why .height wha
-	
+	Fish[] fishes = new Fish[20];
+	Bubbles[] bubbles = new Bubbles[10];
 	public Aquarium() { //constructor: runs when new Aq. made
 		// ask GFX to set window w width & height we chose
 		super(W, H);
+		//Code borrowed from: Lists, Stacks, Queues slides by JJ Foley
+		Random rand = new Random();
+		for (int i =0; i <this.fishes.length; i++) {
+			Color rcolor = Color.getHSBColor(rand.nextFloat(), 0.8f, 0.8f);
+			boolean isSmall = rand.nextBoolean();
+			boolean isRight = rand.nextBoolean();
+			int x = 50 + (i*90)%(W -100);
+			int y = 50 + (i*40)%(H -100);
+			this.fishes[i] = new Fish(x, y, rcolor, isSmall, isRight);
+					//is all my facing left etc code useless bc of this smfh, test out
+		}
+		for (int i =0; i <this.bubbles.length; i++) {
+			//int x = rand.nextInt((300-480)+1)+ 300;
+			int x = ThreadLocalRandom.current().nextInt(300, 480 + 1);
+			int y = 460;
+			int size = rand.nextInt(15);
+			this.bubbles[i] = new Bubbles(x, y, size);
+		}
 	}
+	
 
 //	int fish1X = getWidth() + 100;  //1x 2x as in 1x x coord movement (self)
 //	int fish2X = getWidth() + 300;
 //	int fish3X = -100;
 	//red fish 3x :)
 
-	Fish nemo = new Fish(100, 40, Color.cyan, false, true); 
+//	Fish nemo = new Fish(100, 40, Color.cyan, false, true); 
 			//100, 40 = x, y coord of fish
-	Fish boo = new Fish(140, 80, Color.pink, true, true);
+//	Fish boo = new Fish(140, 80, Color.pink, true, false);
 	 /*problem: boo isn't showing up, and fishes 
 	  * facing both ways, tho that's prob bc of the 2 times
 	  * we are drawing the fish so don't do that? D:
 	  */
+	
 	@Override
 	public void draw(Graphics2D g) { //instead of graphicswin = graphics2d, g=what's usu called, arbitrary obj name
 		//Ocean bg code
 		g.setColor(Color.blue); //bg color, obv set 1st so not over fish
 		g.fillRect(0, 0, getWidth(), getHeight()); 
 		
+		for(Fish f: this.fishes) {
+			f.draw(g);
+		}
+		for(Bubbles b: this.bubbles) {
+			b.draw(g);
+		}
+		
 			//filling rect of the window blue ;)
-		nemo.draw(g); //becomes the this variable in the Fish class
-		 //like the draw(win) thing
-		boo.draw(g);
+//		nemo.draw(g); //becomes the this variable in the Fish class
+//		 //like the draw(win) thing
+//		boo.draw(g);
 		
 		
 		/* Draw the fish! there are >1 versions of draw fish method, 
