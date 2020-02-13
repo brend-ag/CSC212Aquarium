@@ -18,12 +18,7 @@ public class Bubbles {
 
 	public Bubbles(int x, int y, double size) {
 		this.x = x;
-		//this.x = rand.nextInt((300-480)+1)+ 300; //x/y has to be in a certain range! :)
-			//add 1 to make it inclusive bc exclusive of the top value
 		this.y = y;
-		//this.y = 480; 
-		//will it be mad if i hard code it like that?
-		//int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
 		this.size = size; 
 		///this.size = rand.nextInt(15);
 		this.destBX = 400;
@@ -32,7 +27,7 @@ public class Bubbles {
 	
 	public void floatUp(){
 		if(this.x >=300 && this.x<=480) {
-			while(true) {
+			//while(true) {
 				try {
 					this.x+=2;
 					TimeUnit.SECONDS.sleep(1);
@@ -49,36 +44,39 @@ public class Bubbles {
 //				catch(InterruptedException ex) {
 //					Thread.currentThread().interrupt();
 //				}
-		   }		
+		  // }		
 	   }	
 	}
 	public void wiggle() {
 		if(this.y>this.destBY) {
-			while(true) {
-				this.y=y-1;
-				try {
-					//this.y-=5;
-					TimeUnit.SECONDS.sleep(1);
-					
-				}
-				catch(InterruptedException ex) {
-					Thread.currentThread().interrupt();
-				}
-			}
+			this.y-=1;
+//			while(true) {
+//				this.y-=1;
+//				try {
+//					//this.y-=5;
+//					TimeUnit.SECONDS.sleep(1);
+//					
+//				}
+//				catch(InterruptedException ex) {
+//					Thread.currentThread().interrupt();
+//				}
+//			}
 		}
-		if(this.y<destBY) {
+		if(this.y < destBY) {
 			this.y = 530;
 		}
 	
 	}
-//	public void circDraw(Graphics2D g) {
-//		Shape circle = new Ellipse2D.Double(this.x - 20, this.y - 20, 40, 40);
-//		g.setColor(Color.white);
-//		g.fill((Shape) Color.cyan);
-//			//lol java fixed this like that and we gonna trust it
-//		g.draw(circle);
-//		
-//	}
+	
+	public void chest(Graphics2D g) {
+		Graphics2D c = (Graphics2D)g; 
+		
+		c.setColor(Color.black);
+		c.fillRect(360, 460, 100, 50);
+		c.drawRect(360, 460, 100, 50); //x,y,width, height
+		
+		
+	}
 	//code borrowed from https://stackoverflow.com/questions/2509561/how-to-draw-a-filled-circle-in-java
 	//and https://stackoverflow.com/questions/4166066/java-awt-draw-circle-border
 	public void paintComponent(Graphics2D g) {
@@ -94,6 +92,8 @@ public class Bubbles {
 	}
 	public void draw(Graphics2D g) {
 		this.paintComponent(g);
+		this.chest(g);
+		
 	}
 }
 ////////////////////////////////
