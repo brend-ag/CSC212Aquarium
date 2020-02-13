@@ -34,35 +34,50 @@ public class Snail {
 		this.direction = s.toLowerCase();
 	} 
 	
-	public void move(String s) {
-		if (s=="top") {
-			x+=1;
-			System.out.println("i am top");
-			if (x==480) {
-				System.out.println("moving fr top to right");
-				s = "right";
+	public void move() {
+		String s = this.direction; //use direction bc inherent part of Snail
+			if (s=="top") {
+				x+=5;
+				//System.out.println("i am top");
+				if (x>=480) {
+					//System.out.println("moving fr top to right");
+					x=480;
+					this.setSide("right");
+					
+				}
 			}
-		}
-		if (s=="right") {
-			y+=1;
-			System.out.println("i am right");
-			if(y==480) {
-				System.out.println("i am moving fr right to bottom");
-				s = "bottom";
+			if (s=="right") {
+				y+=5;
+			//	System.out.println("i am right");
+				if(y>=460) {
+				//	System.out.println("i am moving fr right to bottom");
+					//this.s = "bottom";
+					y=460;
+					this.setSide("bottom");
+					
+				}
 			}
-		}
-		if (s=="bottom") {
-			x-=1;
-			if(x==20) {
-				s = "left";
+			if (s=="bottom") {
+				x-=5;
+				if(x==60) {
+					//s = "left";
+					x=60;
+					this.setSide("left");
+					
+					
+				}
 			}
-		}
-		if (s=="left") {
-			y-=1;
-			if(y==20) {
-				s = "top";
+			if (s=="left") {
+				y-=5;
+				if(y==60) {
+					//s = "top";
+					y=60;
+					this.setSide("top");
+					
+				}
 			}
-		}
+		 //  isSleep = false; 
+		
 	}
 
 	/**
@@ -70,10 +85,10 @@ public class Snail {
 	 * 
 	 * @param g - the window to draw to.
 	 */
-	public void draw(Graphics2D g, boolean isSleep) {
+	public void draw(Graphics2D g) {
 		// By calling move here, if we want to move our snail, we can do so.
 		// Move gets called by draw, so whenever draw gets called.
-		this.move("top");
+		this.move();
 
 		// By making a new Graphics2D object, we can move everything that gets drawn to
 		// it.
@@ -82,38 +97,37 @@ public class Snail {
 		position.translate(x, y);
 
 		// Note that I need to compare strings with ".equals" this is a Java weirdness.
-		if (isSleep) {
 			if ("bottom".equals(this.direction)) {
-				drawSnail(position, Color.red, Color.white, Color.black, true);
+				drawSnail(position, Color.red, Color.white, Color.black, this.isSleep);
 			} else if ("top".equals(this.direction)) {
 				position.scale(-1, -1);
-				drawSnail(position, Color.red, Color.white, Color.black, true);
+				drawSnail(position, Color.red, Color.white, Color.black, this.isSleep);
 			} else if ("left".equals(this.direction)) {
 				// Oh no, radians.
 				position.rotate(Math.PI / 2);
-				drawSnail(position, Color.red, Color.white, Color.black, true);
+				drawSnail(position, Color.red, Color.white, Color.black, this.isSleep);
 			} else { // we don't have to say "right" here.
 				// Oh no, radians.
 				position.rotate(-Math.PI / 2);
-				drawSnail(position, Color.red, Color.white, Color.black, true);
+				drawSnail(position, Color.red, Color.white, Color.black, this.isSleep);
 			}
-		}
-		else {
-			if ("bottom".equals(this.direction)) {
-				drawSnail(position, Color.red, Color.white, Color.black, false);
-			} else if ("top".equals(this.direction)) {
-				position.scale(-1, -1);
-				drawSnail(position, Color.red, Color.white, Color.black, false);
-			} else if ("left".equals(this.direction)) {
-				// Oh no, radians.
-				position.rotate(Math.PI / 2);
-				drawSnail(position, Color.red, Color.white, Color.black, false);
-			} else { // we don't have to say "right" here.
-				// Oh no, radians.
-				position.rotate(-Math.PI / 2);
-				drawSnail(position, Color.red, Color.white, Color.black, false);
-			}	
-			}
+		
+		
+//			if ("bottom".equals(this.direction)) {
+//				drawSnail(position, Color.red, Color.white, Color.black, false);
+//			} else if ("top".equals(this.direction)) {
+//				position.scale(-1, -1);
+//				drawSnail(position, Color.red, Color.white, Color.black, false);
+//			} else if ("left".equals(this.direction)) {
+//				// Oh no, radians.
+//				position.rotate(Math.PI / 2);
+//				drawSnail(position, Color.red, Color.white, Color.black, false);
+//			} else { // we don't have to say "right" here.
+//				// Oh no, radians.
+//				position.rotate(-Math.PI / 2);
+//				drawSnail(position, Color.red, Color.white, Color.black, false);
+//			}	
+			
 
 		// It's OK if you forget this, Java will eventually notice, but better to have
 		// it!
@@ -146,7 +160,7 @@ public class Snail {
 		else {
 			g.setColor(Color.white);
 			g.fill(eyeWhiteL); 
-			g.setColor(eyeColor); 
+			g.setColor(Color.black); 
 			g.fill(eyePupilL);
 		}
 //		g.setColor(Color.white);
@@ -169,7 +183,7 @@ public class Snail {
 		else {
 			g.setColor(Color.white);
 			g.fill(eyeWhiteR);
-			g.setColor(eyeColor);
+			g.setColor(Color.black);
 			g.fill(eyePupilR);
 		}
 //		g.setColor(Color.white);

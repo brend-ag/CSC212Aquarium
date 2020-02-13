@@ -44,8 +44,8 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 			//int x = rand.nextInt((300-480)+1)+ 300;
 			int x = ThreadLocalRandom.current().nextInt(300, 470 + 1);
 			int y = ThreadLocalRandom.current().nextInt(350, 450 + 1);
-			double size = 10*(0.5)*(ThreadLocalRandom.current().nextInt(1,6 +1));
-			this.bubbles[i] = new Bubbles(x, y, size);
+			//double size = 10*(0.5)*(ThreadLocalRandom.current().nextInt(1,6 +1));
+			this.bubbles[i] = new Bubbles(x, y); //took off size here
 		}
 		
 	}
@@ -61,9 +61,15 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 		//this color logic is borrowed from: https://stackoverflow.com/questions/42855224/how-to-add-rgb-values-into-setcolor-in-java
 		g.setColor(bgColor); //bg color, obv set 1st so not over fish; 
 		g.fillRect(0, 0, getWidth(), getHeight()); //filling rect of the window blue ;)
-		for(int i = 0; i<100; i++) {
+	//	for(int i = 0; i<100; i++) {
+			while (gr!=250) {
 			gr+=10;
-			
+			bgColor = new Color(re, gr, bl);
+			g.setColor(bgColor); 
+			g.fillRect(0, 0, getWidth(), getHeight());
+//			if(Snail.isSleep==false) {
+//				 insert code for the change back to blue thing :(
+//			}
 		}
 		for(Bubbles b: this.bubbles) {
 			b.draw(g);
@@ -71,6 +77,7 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 		for(Fish f: this.fishes) {
 			f.draw(g);
 		}
+		algorithm.draw(g);
 		
 	}
 

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 //import java.util.concurrent.ThreadLocalRandom;
@@ -16,26 +17,26 @@ public class Bubbles {
 	int destBX;
 	int destBY;
 
-	public Bubbles(int x, int y, double size) {
+	public Bubbles(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.size = size; 
+		//this.size = size; 
 		///this.size = rand.nextInt(15);
 		this.destBX = 400;
-		this.destBY = 15;
+		this.destBY = 0;
 	}
 	
 	public void floatUp(){
-		if(this.x >=300 && this.x<=480) {
+		if(this.y>this.destBY) {
+			this.y-=3;
+			
+		};
+		if(this.y <= destBY) {
+			this.y = 530;
+		}
+			
 			//while(true) {
-				try {
-					this.x+=2;
-					TimeUnit.SECONDS.sleep(1);
-					this.x-=2;
-				}
-				catch(InterruptedException ex) {
-					Thread.currentThread().interrupt();
-				}
+				
 //				try {
 //					this.x+=2;
 //					Thread.sleep(500);
@@ -46,26 +47,16 @@ public class Bubbles {
 //				}
 		  // }		
 	   }	
-	}
+	
 	public void wiggle() {
-		if(this.y>this.destBY) {
-			this.y-=1;
+			if(this.x >=300 && this.x<=480) {
 //			while(true) {
 //				this.y-=1;
-//				try {
-//					//this.y-=5;
-//					TimeUnit.SECONDS.sleep(1);
-//					
-//				}
-//				catch(InterruptedException ex) {
-//					Thread.currentThread().interrupt();
-//				}
-//			}
-		}
-		if(this.y < destBY) {
-			this.y = 530;
-		}
-	
+				this.x+=2;
+				//Thread.sleep(500);
+				this.x-=2;
+				
+			}
 	}
 	
 	public void chest(Graphics2D g) {
@@ -81,25 +72,36 @@ public class Bubbles {
 	//and https://stackoverflow.com/questions/4166066/java-awt-draw-circle-border
 	public void paintComponent(Graphics2D g) {
 		//   super.paintComponent(g);
-		   Graphics2D g2d = (Graphics2D)g;
+		   Graphics2D g2d = g;
+		 //  double circX = 10*(0.5)*(ThreadLocalRandom.current().nextInt(1,6 +1));
+		 //  double circY = 10*(0.5)*(ThreadLocalRandom.current().nextInt(1,6 +1));
+		   int circW = ThreadLocalRandom.current().nextInt(10,30 +1);
+		   int circH = ThreadLocalRandom.current().nextInt(10,30 +1);
 		   // Assume x, y, and diameter are instance variables.
-		   Shape circle = new Ellipse2D.Double(this.x, this.y, 40, 40);
+		   Shape circle = new Ellipse2D.Double(this.x, this.y, circW, circH);
 		   g.setColor(Color.cyan);
 		   g2d.fill(circle);
 		   g.setColor(Color.black);
-		   Ellipse2D.Double circleBorder = new Ellipse2D.Double(x, y, 40, 40);
+		   Ellipse2D.Double circleBorder = new Ellipse2D.Double(x, y, circX, circY);
+		   //think abt the W/H and how we can change that randomly w/o it freaking out bc draw is calledf 50 times a sec etc
 		   g2d.draw(circleBorder);
 	}
 	public void draw(Graphics2D g) {
 		this.paintComponent(g);
 		this.chest(g);
+		this.floatUp();
+		this.wiggle();
 		
 	}
 }
 ////////////////////////////////
 /*
  * NEXT STEPSSSSSSSSSSSs
- * find out how to vary the bubble sizes (by a bit) bc
- *  obv my size thing isn't doing anything bc i didn
- * 't tell it to do anything
- * boo */
+ * find out how to vary the bubble sizes (by a bit) bc my size thing
+ *     isn't doing anything
+ * move the bubbles up! not sure why not working :/ 
+ * didn't implement the wiggle yet bc nothing is moving
+ * figure out the random change in size thingggg
+ * make sure the screen turns green etc
+ * 
+ *  */
