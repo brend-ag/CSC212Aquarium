@@ -34,12 +34,14 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 					//is all my facing left etc code useless bc of this smfh, test out
 		}
 		for (int i =0; i <this.bubbles.length; i++) {
+			//random function code borrowed from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
 			//int x = rand.nextInt((300-480)+1)+ 300;
 			int x = ThreadLocalRandom.current().nextInt(300, 480 + 1);
-			int y = 460;
-			int size = rand.nextInt(15);
+			int y = ThreadLocalRandom.current().nextInt(350, 450 + 1);
+			double size = 10*(0.5)*(ThreadLocalRandom.current().nextInt(1,6 +1));
 			this.bubbles[i] = new Bubbles(x, y, size);
 		}
+		
 	}
 	
 
@@ -60,14 +62,16 @@ public class Aquarium extends GFX { /*GFX = animation/graphics, like
 	public void draw(Graphics2D g) { //instead of graphicswin = graphics2d, g=what's usu called, arbitrary obj name
 		//Ocean bg code
 		g.setColor(Color.blue); //bg color, obv set 1st so not over fish
-		g.fillRect(0, 0, getWidth(), getHeight()); 
+		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		for(Fish f: this.fishes) {
-			f.draw(g);
-		}
 		for(Bubbles b: this.bubbles) {
 			b.draw(g);
 		}
+		for(Fish f: this.fishes) {
+			f.draw(g);
+		}
+		
+		
 		
 			//filling rect of the window blue ;)
 //		nemo.draw(g); //becomes the this variable in the Fish class
