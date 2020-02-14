@@ -24,6 +24,7 @@ public class Snail {
 		this.x = sx;
 		this.y = sy;
 		this.isSleep = isSleep;
+
 	}
 
 	/**
@@ -36,47 +37,48 @@ public class Snail {
 	
 	public void move() {
 		String s = this.direction; //use direction bc inherent part of Snail
-			if (s=="top") {
-				x+=5;
-				//System.out.println("i am top");
-				if (x>=480) {
-					//System.out.println("moving fr top to right");
-					x=480;
-					this.setSide("right");
-					
+			if (isSleep==false) {
+			    if (s=="top") {
+					x+=5;
+					//System.out.println("i am top");
+					if (x>=480) {
+						//System.out.println("moving fr top to right");
+						x=450;
+						this.setSide("right");
+						
+					}
 				}
-			}
-			if (s=="right") {
-				y+=5;
-			//	System.out.println("i am right");
-				if(y>=460) {
-				//	System.out.println("i am moving fr right to bottom");
-					//this.s = "bottom";
-					y=460;
-					this.setSide("bottom");
-					
+				if (s=="right") {
+					y+=5;
+				//	System.out.println("i am right");
+					if(y>=450) {
+					//	System.out.println("i am moving fr right to bottom");
+						//this.s = "bottom";
+						y=450;
+						this.setSide("bottom");
+						
+					}
 				}
-			}
-			if (s=="bottom") {
-				x-=5;
-				if(x==60) {
-					//s = "left";
-					x=60;
-					this.setSide("left");
-					
-					
+				if (s=="bottom") {
+					x-=5;
+					if(x==50) {
+						//s = "left";
+						x=50;
+						this.setSide("left");
+						
+						
+					}
 				}
+				if (s=="left") {
+					y-=5;
+					if(y==50) {
+						//s = "top";
+						y=50;
+						this.setSide("top");
+						
+					}
 			}
-			if (s=="left") {
-				y-=5;
-				if(y==60) {
-					//s = "top";
-					y=60;
-					this.setSide("top");
-					
-				}
-			}
-		 //  isSleep = false; 
+		} 
 		
 	}
 

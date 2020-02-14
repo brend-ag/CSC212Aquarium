@@ -1,6 +1,9 @@
 package edu.smith.cs.csc212.aquarium;
 import java.util.Random;
 import java.awt.Color;
+//package edu.smith.cs.csc212.aquarium;
+//import java.util.Random;
+//import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
@@ -16,6 +19,8 @@ public class Bubbles {
 	double size; 
 	int destBX;
 	int destBY;
+	int delay;
+	int wiggle;
 
 	public Bubbles(int x, int y) {
 		this.x = x;
@@ -23,18 +28,24 @@ public class Bubbles {
 		//this.size = size; 
 		///this.size = rand.nextInt(15);
 		this.destBX = 400;
-		this.destBY = 0;
+		this.destBY = -40;
+		this.delay = 0;
+		this.wiggle = 0;
 	}
 	
 	public void floatUp(){
+		//this.delay+=1;
 		if(this.y>this.destBY) {
 			this.y-=3;
 			
 		};
 		if(this.y <= destBY) {
-			this.y = 530;
+			this.y = 435;
 		}
-			
+//		if(this.delay<100) {
+//			this.delay=0;
+//		}
+		this.wiggle=(int)(30.0 * Math.sin(this.y/100.0));
 			//while(true) {
 				
 //				try {
@@ -52,10 +63,14 @@ public class Bubbles {
 			if(this.x >=300 && this.x<=480) {
 //			while(true) {
 //				this.y-=1;
-				this.x+=2;
+				//this.x+=10;
+			//	this.delay+=1;
 				//Thread.sleep(500);
-				this.x-=2;
+				//this.x-=10;
 				
+//				if(this.delay<100) {
+//					this.delay=0;
+//				}
 			}
 	}
 	
@@ -75,14 +90,14 @@ public class Bubbles {
 		   Graphics2D g2d = g;
 		 //  double circX = 10*(0.5)*(ThreadLocalRandom.current().nextInt(1,6 +1));
 		 //  double circY = 10*(0.5)*(ThreadLocalRandom.current().nextInt(1,6 +1));
-		   int circW = ThreadLocalRandom.current().nextInt(10,30 +1);
-		   int circH = ThreadLocalRandom.current().nextInt(10,30 +1);
+//		   int circW = ThreadLocalRandom.current().nextInt(10,30 +1);
+//		   int circH = ThreadLocalRandom.current().nextInt(10,30 +1);
 		   // Assume x, y, and diameter are instance variables.
-		   Shape circle = new Ellipse2D.Double(this.x, this.y, circW, circH);
+		   Shape circle = new Ellipse2D.Double(this.x, this.y, 40, 40);
 		   g.setColor(Color.cyan);
 		   g2d.fill(circle);
 		   g.setColor(Color.black);
-		   Ellipse2D.Double circleBorder = new Ellipse2D.Double(x, y, circX, circY);
+		   Ellipse2D.Double circleBorder = new Ellipse2D.Double(x, y, 40, 40);
 		   //think abt the W/H and how we can change that randomly w/o it freaking out bc draw is calledf 50 times a sec etc
 		   g2d.draw(circleBorder);
 	}
